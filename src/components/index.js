@@ -6,6 +6,7 @@ import PostCard from './PostCard.jsx'
 import Login from './Login.jsx'
 import Signup from './Signup.jsx'
 import Select from './Select.jsx'
+import PostForm from './Postform/PostForm.jsx'
 
-export {Header, Footer, Input, Button, PostCard, Login, Signup, Select}
+export {Header, Footer, Input, Button, PostCard, Login, Signup, Select, PostForm}
 
