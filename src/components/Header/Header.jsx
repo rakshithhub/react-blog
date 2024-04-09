@@ -40,7 +40,7 @@ const Header = () => {
             <nav className='w-full bg-slate-800 p-4'>
                 <div className="max-w-[1240px] mx-auto flex justify-between items-center">
                     <div>
-                        <h1 className="font-bold text-2xl text-pink-500">Logo</h1>
+                    <h1 className="text-3xl font-bold text-pink-500">Insta Blog</h1>
                     </div>
                     <ul className="flex gap-5 text-white text-lg font-semibold">
                         {
