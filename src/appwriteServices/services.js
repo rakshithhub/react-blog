@@ -1,4 +1,4 @@
-import {Client, ID, Databases, Storage, Query} from 'appwrite'
+import {Client, ID, Databases, Storage} from 'appwrite'
 import conf from '../config/config.js';
 
     class Services {
@@ -53,22 +53,24 @@ import conf from '../config/config.js';
         }
 
         //Get Documents
-        
-        async getPosts (queries = [Query.equal('status','active')]) {
+        // queries = [Query.equal('status','active')]
+        async getPosts () {
             try {
-                return await this.databases.listDocuments(conf.appwrite_databases_id, conf.appwrite_collection_id, queries)
+                return await this.databases.listDocuments(conf.appwrite_databases_id, conf.appwrite_collection_id)
             } catch (error) {
                 console.log(error);
+                return false;
             }
         }
 
         //Upload File
 
-        async uploadFile (file){
+        async uploadFile(file){
             try {
-                return await this.bucket.updateFile(conf.appwrite_storage_id, ID.unique(), file)
+                return await this.bucket.createFile(conf.appwrite_storage_id, ID.unique(), file)
             } catch (error) {
                 console.log(error);
+                return false;
             }
         }
 

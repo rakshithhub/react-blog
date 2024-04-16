@@ -1,11 +1,14 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import authService from "../../appwriteServices/auth";
+import { logout } from "../../feature/authSlice";
 
 
 const Header = () => {
 
     const authStatus = useSelector(state => state.auth.status);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const navItems = [
         {
@@ -15,7 +18,7 @@ const Header = () => {
         },
         {
             name: "All Post",
-            slug: "/all-post",
+            slug: "/all-posts",
             active: authStatus,
         },
         {
@@ -34,6 +37,9 @@ const Header = () => {
             active: !authStatus,
         },
     ]
+    const logoutUser = () => {
+        authService.logoutAccount().then(() => dispatch(logout())).catch((error) => console.log(error))
+    }
   return (
     <>
         <header className="mb-12">
@@ -49,7 +55,8 @@ const Header = () => {
                             ))
                         }
 
-                        {authStatus && <li><button className="px-2 bg-pink-500 rounded-lg uppercase font-semibold hover:text-pink-500 hover:bg-transparent duration-75">Logout</button></li>}
+                        {authStatus && <li><button className="px-2 bg-pink-500 rounded-lg uppercase font-semibold hover:text-pink-500 hover:bg-transparent duration-75" 
+                        onClick={logoutUser}>Logout</button></li>}
                     </ul>
                 </div>
             </nav>

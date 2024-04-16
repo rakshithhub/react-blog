@@ -43,7 +43,7 @@ const Signup = () => {
             label = "Full Name"
             type = "text"
             placeholder = "Enter Your Full Name"
-            {...register('fullName', {
+            {...register('name', {
                 required: true
             })}
         />

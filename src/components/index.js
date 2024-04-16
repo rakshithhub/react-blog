@@ -7,6 +7,7 @@ import Login from './Login.jsx'
 import Signup from './Signup.jsx'
 import Select from './Select.jsx'
 import PostForm from './Postform/PostForm.jsx'
+import Protected from './Protected.jsx'
 
-export {Header, Footer, Input, Button, PostCard, Login, Signup, Select, PostForm}
+export {Header, Footer, Input, Button, PostCard, Login, Signup, Select, PostForm, Protected}
 

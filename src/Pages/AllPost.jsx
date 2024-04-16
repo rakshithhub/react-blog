@@ -3,11 +3,12 @@ import services from "../appwriteServices/services";
 import { PostCard } from "../components";
 
 const AllPost = () => {
-    const [posts, setPosts] = useState();
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        services.getPosts().then(post => setPosts(post.documents))
+        services.getPosts().then(item => setPosts(item.documents))
     }, [])
+    console.log(posts);
 
   return (
     <>

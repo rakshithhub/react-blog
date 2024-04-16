@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import services from '../appwriteServices/services.js'
 
@@ -12,7 +12,7 @@ const PostCard = ({$id, title, content, featuredImage}) => {
         .catch((err) => console.log(err))
     }, [featuredImage])
   return (
-    <Link>
+    <Link to={`/post/${$id}`}>
         <div>
             <div className="max-w-[200px] p-2 bg-black rounded-lg max-h-[300px] overflow-hidden">
                 <img src={image && image} alt={title} className="h-36 w-full rounded-md" />

@@ -13,7 +13,7 @@ class AuthService {
     //SignUp
     async createAccount ({email, password, name}) {
         try {
-            const user = await this.account(ID.unique(), email, password, name);
+            const user = await this.account.create(ID.unique(), email, password, name);
 
             if(user){
                 return this.loginAccount({email,password})
@@ -51,6 +51,8 @@ class AuthService {
         } catch (error) {
             console.log(error);
         }
+
+        return null
     }
 }
 

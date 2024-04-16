@@ -2,13 +2,14 @@ import {useForm} from 'react-hook-form'
 import services from '../../appwriteServices/services.js';
 import {useNavigate} from 'react-router-dom'
 import {useSelector} from 'react-redux'
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {Input, Button, Select} from '../index.js'
 
 const PostForm = ({post}) => {
     const navigate = useNavigate()
     const userData = useSelector(state => state.auth.userData);
-    
+    const [image, setImage] = useState("");
+
     const {handleSubmit, register, watch, setValue} = useForm({
         defaultValues: {
             title: post?.title || "",
@@ -37,7 +38,7 @@ const PostForm = ({post}) => {
             }
         }else{
             const file = data.image[0] ? await services.uploadFile(data.image[0]) : null;
-
+            
             if(file){
                 const fileId = file.$id;
                 data.featuredImage = fileId;
@@ -48,7 +49,7 @@ const PostForm = ({post}) => {
                 })
 
                 if(dbPost){
-                    navigate(`post/${dbPost.$id}`)
+                    navigate(`/post/${dbPost.$id}`)
                 }
             }
         }
@@ -56,8 +57,9 @@ const PostForm = ({post}) => {
 
     const slugTransform = useCallback((value) => {
         if(value && typeof value === 'string'){
-            return value.trim().toLowerCase().replace(/[^a-zA-Z\d\s]+/g, "-").replace(/\s/g, "-")
+            return value.trim().toLowerCase().replace(/[^a-zA-Z\d\s]+/g, "-").replace(/\s/g, "-");
         }
+
         return "";
     }, [])
 
@@ -68,8 +70,13 @@ const PostForm = ({post}) => {
             }
         })
 
-        return subcription.unsubscribe()
+        return () => {
+            subcription.unsubscribe()
+        }
+
     }, [watch, setValue, slugTransform])
+
+
 
   return (
     <>
@@ -90,9 +97,9 @@ const PostForm = ({post}) => {
 
                 <Input
                     label="Slug:"
-                    type="text"
                     placeholder="Slug"
-                    {...register('slug', {required: true})}
+                    readOnly
+                    {...register("slug", {required: true})}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), {shouldValidate: true})
                     }}
@@ -106,13 +113,12 @@ const PostForm = ({post}) => {
                 />
 
                 {
-                    post ? <img src="src/assets/instablog.svg" alt="" className="max-w-44 max-h-20 mx-auto"/> : null
+                    post && (<img src="" alt="" className="max-w-44 max-h-20 mx-auto"/>) 
                 }
 
                 <Input
                     label="Featured Image:"
                     type="file"
-                    placeholder="file"
                     accept= "image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", {required: !post})}
                 />
