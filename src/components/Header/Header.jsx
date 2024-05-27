@@ -37,6 +37,8 @@ const Header = () => {
             active: !authStatus,
         },
     ]
+
+    console.log(authStatus);
     const logoutUser = () => {
         authService.logoutAccount().then(() => dispatch(logout())).catch((error) => console.log(error))
     }

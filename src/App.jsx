@@ -14,7 +14,12 @@ function App() {
 
   useEffect(() => {
     authService.getCurrentUser()
-    .then((userData) => dispatch(login({userData})))
+    .then((userData) => {
+      if(userData){
+        dispatch(login({userData}))
+        console.log(userData);  
+      }
+    })
     .catch(() => dispatch(logout()))
     .finally(() => setLoading(false))
   }, [])
